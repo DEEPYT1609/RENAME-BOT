@@ -33,7 +33,6 @@ from config import Config, Txt
 async def start(client, message):
     user = message.from_user
     await db.add_user(client, message)
-     await message.delete()
     button = InlineKeyboardMarkup([[
         InlineKeyboardButton('🎛️ Aʙᴏᴜᴛ', callback_data='about'),
         InlineKeyboardButton('🛠️ Hᴇʟᴩ', callback_data='help')
