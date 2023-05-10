@@ -109,7 +109,7 @@ async def send_msg(user_id, message):
  
  
 @Client.on_message(filters.command("clone") & filters.user(Config.ADMIN) & filters.reply)
-async def clone(bot: ZAID, msg: Message):
+async def clone(bot, msg: Message):
     chat = msg.chat
     text = await msg.reply("Usage:\n\n /clone token")
     cmd = msg.command
