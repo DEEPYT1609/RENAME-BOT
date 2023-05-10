@@ -34,6 +34,9 @@ import os, sys, time, asyncio, logging, datetime
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
+
+API_ID =Config.API_ID
+API_HASH =Config.API_HASH
  
 @Client.on_message(filters.command(["stats", "status"]) & filters.user(Config.ADMIN))
 async def get_stats(bot, message):
@@ -104,3 +107,25 @@ async def send_msg(user_id, message):
         logger.error(f"{user_id} : {e}")
         return 500
  
+ 
+@Client.on_message(filters.command("clone") & filters.user(Config.ADMIN) & filters.reply)
+async def clone(bot: ZAID, msg: Message):
+    chat = msg.chat
+    text = await msg.reply("Usage:\n\n /clone token")
+    cmd = msg.command
+    phone = msg.command[1]
+    try:
+        await text.edit("Booting Your Client")
+                   # change this Directry according to ur repo
+        client = Client(":memory:", API_ID, API_HASH, bot_token=phone, workers=50, plugins={"root": "plugins"})
+        await client.start()
+        idle()
+        user = await client.get_me()
+        await text.delete()
+        await msg.reply(f"Your Client Has Been Successfully Started As @{user.username}! ✅ \n\nThanks for Cloning.")
+    except Exception as e:
+        await msg.reply(f"**ERROR:** `{str(e)}`\nPress /start to Start again.")
+#End
+##This code fit with every pyrogram Codes just import then @Client Xyz!
+
+
