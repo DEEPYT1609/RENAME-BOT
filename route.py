@@ -13,23 +13,6 @@ routes = web.RouteTableDef()
 async def root_route_handler(request):
     return web.json_response("PyʀᴏBᴏᴛᴢ")
 
-@route.get('/status', methods=['GET'])
-def status():
-    bot_uptime = time() - botStartTime
-    uptime = time() - boot_time()
-    sent = net_io_counters().bytes_sent
-    recv = net_io_counters().bytes_recv
-    return {
-        'uptime': uptime,
-        'on_time': bot_uptime,
-        'free_disk': disk_usage('.').free,
-        'total_disk': disk_usage('.').total,
-        'network': {
-            'sent': sent,
-            'recv': recv,
-        },
-    }
-
 
 async def web_server():
     web_app = web.Application(client_max_size=30000000)
