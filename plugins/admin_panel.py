@@ -35,9 +35,6 @@ import os, sys, time, asyncio, logging, datetime
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-API_ID =Config.API_ID
-API_HASH =Config.API_HASH
-
 async def get_readable_size(size_in_bytes) -> str:
     if size_in_bytes is None:
         return '0B'
@@ -49,7 +46,17 @@ async def get_readable_size(size_in_bytes) -> str:
         return f'{round(size_in_bytes, 2)}{SIZE_UNITS[index]}'
     except:
         return 'Error'
-
+def get_readable_size(size_in_bytes) -> str:
+    if size_in_bytes is None:
+        return '0B'
+    index = 0
+    while size_in_bytes >= 1024:
+        size_in_bytes /= 1024
+        index += 1
+    try:
+        return f'{round(size_in_bytes, 2)}{SIZE_UNITS[index]}'
+    except:
+        return 'Error'
 
 @Client.on_message(filters.command(["stats", "status"]) & filters.user(Config.ADMIN))
 async def get_stats(bot, message):
@@ -59,12 +66,9 @@ async def get_stats(bot, message):
     st = await message.reply('**Aᴄᴄᴇꜱꜱɪɴɢ Tʜᴇ Dᴇᴛᴀɪʟꜱ.....**')    
     end_t = time.time()
     time_taken_s = (end_t - start_t) * 1000
-    sent = get_readable_file_size(net_io_counters().bytes_sent)
-    recv = get_readable_file_size(net_io_counters().bytes_recv)
-    freedisk = get_readable_file_size(disk_usage('.').free)
     ramuse = psutil.virtual_memory().percent
     cpuuse = psutil.cpu_percent()
-    await st.edit(text=f"**--Bᴏᴛ Sᴛᴀᴛᴜꜱ--** \n\n**⌚️ Bᴏᴛ Uᴩᴛɪᴍᴇ:** {uptime}\n\n**Bandwidth Usage**:-\nUpload:-{sent}\nDownload ;-{recv}\n\n**System Status**:-\nCpu usage:-{cpuuse}\nFree Disk:-{freedisk}\nRam Usage:-{ramuse}\n\n**🐌 Cᴜʀʀᴇɴᴛ Pɪɴɢ:** `{time_taken_s:.3f} ᴍꜱ` \n**👭 Tᴏᴛᴀʟ Uꜱᴇʀꜱ:** `{total_users}`")
+    await st.edit(text=f"**--Bᴏᴛ Sᴛᴀᴛᴜꜱ--** \n\n**⌚️ Bᴏᴛ Uᴩᴛɪᴍᴇ:** {uptime}\n\n**Bandwidth Usage**:-\nUpload:-{get_readable_file_size(net_io_counters().bytes_sent)}\nDownload ;-{get_readable_file_size(net_io_counters().bytes_recv)}\n\n**System Status**:-\nCpu usage:-{cpuuse}\nFree Disk:-{get_readable_file_size(disk_usage('.').free)}\nRam Usage:-{ramuse}\n\n**🐌 Cᴜʀʀᴇɴᴛ Pɪɴɢ:** `{time_taken_s:.3f} ᴍꜱ` \n**👭 Tᴏᴛᴀʟ Uꜱᴇʀꜱ:** `{total_users}`")
 
 
 #Restart to cancell all process 
