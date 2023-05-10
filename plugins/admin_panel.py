@@ -20,8 +20,12 @@ Telegram Link : https://t.me/PYRO_BOTZ
 Repo Link : https://github.com/TEAM-PYRO-BOTZ/PYRO-RENAME-BOT
 License Link : https://github.com/TEAM-PYRO-BOTZ/PYRO-RENAME-BOT/blob/main/LICENSE
 """
-
+import psutil
 from config import Config
+from time import sleep, time
+from psutil import boot_time, disk_usage, net_io_counters
+from subprocess import check_output
+from os import path as ospath
 from helper.database import db
 from pyrogram.types import Message
 from pyrogram import Client, filters
@@ -39,7 +43,13 @@ async def get_stats(bot, message):
     st = await message.reply('**Aᴄᴄᴇꜱꜱɪɴɢ Tʜᴇ Dᴇᴛᴀɪʟꜱ.....**')    
     end_t = time.time()
     time_taken_s = (end_t - start_t) * 1000
-    await st.edit(text=f"**--Bᴏᴛ Sᴛᴀᴛᴜꜱ--** \n\n**⌚️ Bᴏᴛ Uᴩᴛɪᴍᴇ:** {uptime} \n**🐌 Cᴜʀʀᴇɴᴛ Pɪɴɢ:** `{time_taken_s:.3f} ᴍꜱ` \n**👭 Tᴏᴛᴀʟ Uꜱᴇʀꜱ:** `{total_users}`")
+    sent = net_io_counters().bytes_sent
+    recv = net_io_counters().bytes_recv
+    freedisk = disk_usage('.').free
+    totaldisk = disk_usage('.')..total
+    ramuse = psutil.virtual_memory()
+    cpuuse = psutil.cpu_percent()
+    await st.edit(text=f"**--Bᴏᴛ Sᴛᴀᴛᴜꜱ--** \n\n**⌚️ Bᴏᴛ Uᴩᴛɪᴍᴇ:** {uptime} \nBandwidth Usage :-\nUpload:-{sent}\nDownload ;-{recv}\n\nSystem Status:-\nCpu usage:-\nFree Disk:-{freedisk}\nTotal Disk:-{totaldisk}\nRam Usage:-{ramuse}**🐌 Cᴜʀʀᴇɴᴛ Pɪɴɢ:** `{time_taken_s:.3f} ᴍꜱ` \n**👭 Tᴏᴛᴀʟ Uꜱᴇʀꜱ:** `{total_users}`")
 
 
 #Restart to cancell all process 
