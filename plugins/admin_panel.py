@@ -47,7 +47,7 @@ async def get_stats(bot, message):
     time_taken_s = (end_t - start_t) * 1000
     ramuse = psutil.virtual_memory().percent
     cpuuse = psutil.cpu_percent()
-    await st.edit(text=f"**--Bᴏᴛ Sᴛᴀᴛᴜꜱ--** \n\n**⌚️ Bᴏᴛ Uᴩᴛɪᴍᴇ:** {uptime}\n\n**🖥System Status**:-\nCpu usage:-{cpuuse}%\nFree Disk:-{psutil.disk_usage('/').percent)}%\nRam Usage:-{ramuse}%\n\n**🐌 Cᴜʀʀᴇɴᴛ Pɪɴɢ:** `{time_taken_s:.3f} ᴍꜱ` \n**👭 Tᴏᴛᴀʟ Uꜱᴇʀꜱ:** `{total_users}`")
+    await st.edit(text=f"**--Bᴏᴛ Sᴛᴀᴛᴜꜱ--** \n\n**⌚️ Bᴏᴛ Uᴩᴛɪᴍᴇ:** {uptime}\n\n**🖥System Status**:-\nCpu usage:-{cpuuse}%\nFree Disk:-{psutil.disk_usage('/').percent)}%\nRam Usage:-{ramuse}%\n\n**🐌 Cᴜʀʀᴇɴᴛ Pɪɴɢ:** `{time_taken_s} ᴍꜱ` \n**👭 Tᴏᴛᴀʟ Uꜱᴇʀꜱ:** `{total_users}`")
 
 
 #Restart to cancell all process 
