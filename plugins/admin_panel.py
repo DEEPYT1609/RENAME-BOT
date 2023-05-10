@@ -49,7 +49,7 @@ async def get_stats(bot, message):
     sent = net_io_counters().bytes_sent
     recv = net_io_counters().bytes_recv
     freedisk = disk_usage('.').free
-    totaldisk = disk_usage('.')..total
+    totaldisk = disk_usage('.').total
     ramuse = psutil.virtual_memory()
     cpuuse = psutil.cpu_percent()
     await st.edit(text=f"**--Bᴏᴛ Sᴛᴀᴛᴜꜱ--** \n\n**⌚️ Bᴏᴛ Uᴩᴛɪᴍᴇ:** {uptime} \nBandwidth Usage :-\nUpload:-{sent}\nDownload ;-{recv}\n\nSystem Status:-\nCpu usage:-\nFree Disk:-{freedisk}\nTotal Disk:-{totaldisk}\nRam Usage:-{ramuse}**🐌 Cᴜʀʀᴇɴᴛ Pɪɴɢ:** `{time_taken_s:.3f} ᴍꜱ` \n**👭 Tᴏᴛᴀʟ Uꜱᴇʀꜱ:** `{total_users}`")
